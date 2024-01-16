@@ -1,0 +1,164 @@
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+
+.nav-menu {
+  margin-top: 2em;
+
+  @include media-breakpoint-down(lg) {
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-left: 2em;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .menu-header {
+    position: relative;
+    font-size: 12px;
+    color: #6C757D;
+
+    .top-menu-item {
+      line-height: 3em;
+
+      .open-close {
+        position: absolute;
+        top: -1.5em;
+        right: -1.4em;
+        background: var(--cstm-color-mnu-inset-bg);
+        width: 3.7em;
+        height: 4em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-bottom-left-radius: 60%;
+        border-top-left-radius: 60%;
+        color: var(--cstm-color-mnu-inset-fc);
+        font-size: 1em;
+        font-weight: bold;
+        cursor: pointer;
+
+        .bi-arrow-right {
+          rotate: 180deg;
+          font-size: 2em;
+          transition: rotate 0.8s 0.3s;
+        }
+      }
+    }
+  }
+
+  .menu-item {
+    z-index: 1;
+    visibility: visible;
+    position: relative;
+
+    a {
+      display: flex;
+      text-decoration: none;
+      align-items: center;
+      color: var(--cstm-color-mnu-fc-link);
+
+      &:hover {
+        color: var(--cstm-color-mnu-fc-shade);
+      }
+    }
+
+    .menu-icon {
+      margin: 0.5em 0;
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      transition: font-size 0.8s 0s, margin-left 0.5s 0s;
+
+      &.menu-with-sub {
+        position: relative;
+
+        &::after {
+          content: '\F309';
+          font-family: bootstrap-icons;
+          opacity: 0;
+          transition: opacity 0.8s 0.8s;
+          display: none;
+        }
+      }
+    }
+
+    .menu-title {
+      display: flex;
+      justify-content: start;
+      align-items: center;
+      margin-left: 3em;
+      opacity: 1;
+      width: 12em;
+      height: 2em;
+      transition: width 0.3s 0s, height 0.3s 0.3s, opacity 0.3s 0.3s;
+
+      &.menu-with-sub {
+        position: relative;
+
+        &::after {
+          content: '\F285';
+          font-family: bootstrap-icons;
+          position: absolute;
+          right: 0;
+          transition: rotate 2s 0s;
+        }
+
+        &.chevron-rotate {
+          &::after {
+            rotate: 90deg;
+            transition: rotate 2s 0s;
+          }
+        }
+      }
+    }
+
+    .sub-menu {
+      ul {
+        li {
+          display: flex;
+          justify-content: left;
+          margin-left: 6em;
+          line-height: 2em;
+        }
+
+        .logout-link {
+          @include media-breakpoint-up(lg) {
+            display: none;
+          }
+        }
+      }
+
+      height: 9em;
+      transition: height 0.3s 0s, opacity 0.3s 0.3s;
+      z-index: 0;
+
+      &.sub-menu-closed {
+        height: 0;
+        opacity: 0;
+        transition: height 0.5s 0s, opacity 0.3s 0s, visibility 0.3s 0s;
+        visibility: hidden;
+      }
+
+    }
+
+    .hover-sub-menu {
+      position: absolute;
+      right: -12em;
+      top: 0;
+      z-index: 10;
+      width: 12em;
+      display: none;
+      padding: 1em;
+
+      .logout-link {
+        @include media-breakpoint-up(lg) {
+          display: none;
+        }
+      }
+    }
+  }
+}

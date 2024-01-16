@@ -1,0 +1,123 @@
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+
+
+.main-nav-wrapper {
+
+  .side-nav {
+    border-right: 1px solid var(--cstm-color-mnu-bg);
+    background-color: var(--cstm-color-mnu-bg);
+    z-index: 1;
+    width: 18em;
+    height: 100%;
+    padding: 1em;
+    transition: 0.4s ease-in-out;
+    color: var(--cstm-color-mnu-fc);
+
+    .profile-image {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      margin-bottom: 1em;
+
+      img {
+        border-radius: 50%;
+        width: 5em;
+        height: 5em;
+        transition: width 0.5s 0s, height 0.5s 0s;
+      }
+
+      .user {
+        height: 5em;
+        width: 12em;
+        text-wrap: none;
+        text-align: center;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        transition: width 0.5s 0s, height 0.3s 0.3s;
+
+        h6, p {
+          margin: 0;
+        }
+      }
+    }
+
+    &.is-side-bar-closed {
+      width: 4.5em;
+
+      .profile-image {
+
+        img {
+          width: 2.5em;
+          height: 2.5em;
+          transition: width 0.5s 0s, height 0.5s 0s;
+        }
+
+        .user {
+          width: 0;
+          height: 0;
+          overflow: hidden;
+          transition: height 0.3s 0s, width 0.3s 0.3s;
+        }
+      }
+
+      .nav-menu {
+        .menu-header {
+          .top-menu-item {
+            .open-close {
+              .bi-arrow-right {
+                rotate: 0deg;
+                transition: rotate 0.8s 0s;
+              }
+            }
+          }
+
+          span {
+            opacity: 0;
+            transition: opacity 0.3s 0s;
+          }
+        }
+
+        .menu-item {
+          .menu-icon {
+            margin-left: 0.1em;
+            transition: font-size 0.5s 0.5s, margin-left 0.5s 0s;
+
+            &.menu-with-sub {
+              position: relative;
+
+              &::after {
+                opacity: 1;
+                display: block;
+                transition: opacity 0.8s 0.8s;
+              }
+            }
+          }
+
+          .menu-title {
+            opacity: 0;
+            width: 0;
+            margin: 0;
+            height: 0;
+            overflow: hidden;
+            transition: opacity 0s 0s, width 0.5s 0.5s, height 0.5s 0.5s;
+          }
+
+          &:hover {
+            .hover-sub-menu {
+              display: block;
+              border-top-right-radius: 20px;
+              border-bottom-right-radius: 20px;
+              background: var(--bs-body-bg);
+              z-index: 30;
+            }
+          }
+        }
+      }
+    }
+  }
+}

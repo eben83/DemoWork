@@ -1,0 +1,31 @@
+.app-mobile-nav {
+
+  .bottom-nav {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    z-index: 2;
+    background: var(--cstm-color-mnu-bg);
+    opacity: 1;
+
+    .iconLabel {
+      color: var(--bs-body-color);
+      font-size: 0.6rem;
+      text-decoration: none;
+      margin-bottom: .5em;
+    }
+
+    .nav-mobile-icon {
+      color: var(--cstm-color-mnu-fc-shade);
+      padding: 0.5em;
+      background-color: var(--cstm-color-mnu-fc-link);
+      border-radius: 50px;
+    }
+  }
+
+  .offcanvas-body {
+    background-color: var(--cstm-color-hwall-bg);
+  }
+}

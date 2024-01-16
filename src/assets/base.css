@@ -1,0 +1,54 @@
+:root {
+    --app-sidebar-width: 18rem;
+    
+    /*TOP NAV BAR*/
+    --cstm-color-hdr-bg: #002b5e;
+    --cstm-color-hdr-fc: #FFFFFF;
+    --cstm-color-hdr-fc-link: #01679a;
+    --cstm-color-hdr-fc-shade: #9AC93A;
+    
+    /*MENU LIST*/
+    --cstm-color-mnu-inset-bg: #01679a;
+    --cstm-color-mnu-inset-fc: #FFFFFF;
+    --cstm-color-mnu-fc-link: #01679a;
+    --cstm-color-mnu-fc-shade: #9AC93A;
+    
+  /*HOME PROFILE*/
+    --cstm-color-hprofile-bg: #01679A;
+    --cstm-color-hprofile-fc: #FFFFFF;
+    --cstm-color-hprofile-inset-fc: #01679A;
+    --cstm-color-hprofile-inset-bg: #FFFFFF;
+    --cstm-color-hprofile-inset-fc-shade: #9AC93A;
+    --cstm-color-hprofile-inset-bg-shade: #FFFFFF;
+    
+    
+  /*HOME BUTTONS*/
+    --cstm-color-hbtn1-bg: #9AC93A;
+    --cstm-color-hbtn1-fc: #FFFFFF;
+    --cstm-color-hbtn1-inset-bg: #01679A;
+    --cstm-color-hbtn1-inset-fc: #FFFFFF;
+  
+    --cstm-color-hbtn2-bg: #01679A;
+    --cstm-color-hbtn2-fc: #FFFFFF;
+    --cstm-color-hbtn2-inset-bg: #9AC93A;
+    --cstm-color-hbtn2-inset-fc: #FFFFFF;
+    
+  /*HOME NEWS FEED*/
+    --cstm-color-hwall-bg: #9AC93A;
+  
+    --cstm-color-hwall-inset-bg: #01679A;
+    --cstm-color-hwall-inset-fc: #FFFFFF;
+    --cstm-color-hwall-inset-fc-shade: #FFFFFF;
+    --cstm-color-hwall-inset-sel-bg: #FFFFFF;
+    --cstm-color-hwall-inset-sel-fc: #688B27;
+    --cstm-color-hwall-fc: #FFFFFF;
+    --cstm-color-hwall-block-bg: #FFFFFF;
+    --cstm-color-hwall-block-fc: #212529;
+    --cstm-color-hwall-block-inset-fc: #FFFFFF;
+    --cstm-color-hwall-block-inset-fc-shade: #7692b8;
+    --cstm-color-hwall-block-inset-bg-shade: #FFFFFF;
+    --cstm-color-hwall-block-inset-bg: #7692b8;
+    
+    /*MOBILE NAV BAR*/
+    --cstm-color-mnu-bg: #FFFFFF;
+    }

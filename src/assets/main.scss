@@ -1,0 +1,28 @@
+@import './base.css';
+
+.layout {
+  main {
+    width: 100%;
+    transition: 0.4s cubic-bezier(0, 0.84, 0.32, 1.28);
+
+    &::-webkit-scrollbar {
+      background-color: transparent;
+      width: 1px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: transparent;
+    }
+  }
+
+  .wrapper {
+    display: flex;
+  }
+
+  .wrapper-content {
+  }
+
+  .wrapper-content::-webkit-scrollbar {
+    display: none;
+  }
+}
