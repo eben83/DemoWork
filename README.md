@@ -2,8 +2,16 @@
 
 ## Project Setup
 
+### Install required NPM packages
+
 ```sh
 npm install
+```
+
+### Run application
+
+```sh
+npm run dev
 ```
 
 ## Technology used
