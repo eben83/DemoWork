@@ -31,4 +31,4 @@ npm run dev
 
 ### Vercel link
 
-https://demo-work-chi.vercel.app/games
+https://demo-work-chi.vercel.app/
