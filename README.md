@@ -4,7 +4,7 @@
 
 ### Install required NPM packages
 
-```sh
+```bash
 npm install
 ```
 
