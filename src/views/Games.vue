@@ -1,6 +1,5 @@
 <script setup>
 import { ref , onMounted , watchEffect } from 'vue';
-import { useStore } from '@/stores/store';
 
 import cardBack from '../assets/image/gameImages/flipCard/back.png';
 import front1 from '../assets/image/gameImages/flipCard/front1.png';
@@ -13,7 +12,6 @@ import front7 from '../assets/image/gameImages/flipCard/front7.png';
 import front8 from '../assets/image/gameImages/flipCard/front8.png';
 import router from '@/router';
 
-const store = useStore();
 let view = ref( 'gameSelect' );
 
 onMounted( () => {
@@ -242,7 +240,7 @@ const degrees = ref( [
   { deg: 10500 } ,
 ] );
 const isSpinning = ref( false );
-const winningPrize = 0;
+let isWinningSpin = ref(false)
 const createNewSpinGame = () => {
   //copy prizes
   const copySpinPrizes = SpinPrizes.value.map( item => item );
@@ -300,43 +298,31 @@ const createNewSpinGame = () => {
 const generateRandom = ( min , max ) => {
   return Math.floor( Math.random() * ( max - min + 1 ) + min );
 };
-const handleWin = ( actualDeg ) => {
-  
-  const winningNum = Math.round( actualDeg / zoneSize );
-  
-  if ( actualDeg < 44 ) {
-    newSpinGame.value[ winningNum ].name;
-    
-    //set time out before changing style
-    setTimeout( () => {
-      newSpinGame.value[ winningNum ].isSelected = true;
-    } , 2000 );
-  }
-  else {
-    prizeReverse.value[ winningNum - 1 ].name;
-    
-    setTimeout( () => {
-      prizeReverse.value[ winningNum - 1 ].isSelected = true;
-    } , 2000 );
-  }
-  if ( newSpinGame.value[ winningNum ].isWinner ) {
-    const data = {};
-    data.campaignType = store.campaignSelected.campaignType;
-    
-    if ( store.miNumberSearch.length !== 0 ) {
-      data.miNumber = store.storeSelected.storeSelect;
-    }
-    else {
-      data.miNumber = store.storeSelected.selectStore.miNumber;
-    }
-    
-    data.playerType = store.playerTypeSelected.playerType;
-    store.getListOfPrizes( data );
-    
-    setTimeout( () => {
-      isWinningBanner.value = true;
-    } , 3000 );
-  }
+const handleWin = (actualDeg) => {
+            const winningNum = Math.round(actualDeg / zoneSize);
+
+            if (actualDeg < 44) {
+                  newSpinGame.value[winningNum].name;
+
+                  //set time out before changing style
+                  setTimeout(() => {
+                        newSpinGame.value[winningNum].isSelected = true;
+                  }, 2000);
+            } else {
+                  prizeReverse.value[winningNum - 1].name;
+
+                  setTimeout(() => {
+                        prizeReverse.value[winningNum - 1].isSelected = true;
+                  }, 2000);
+            }
+            if (newSpinGame.value[winningNum].isWinner) {
+              isWinningSpin.value = true
+              console.log('WINNER')
+
+              setTimeout(() => {
+                isWinningSpin.value = true;
+              }, 3000);
+            }
 };
 
 watchEffect( () => {
@@ -382,58 +368,57 @@ const indexes = [ 0 , 0 , 0 ];
 let isRolling = ref( false );
 const iconMap = [ 'banana' , 'seven' , 'cherry' , 'plum' , 'orange' , 'bell' , 'bar' , 'lemon' , 'watermelon' ];
 const numberPlay = ref( 0 );
-const roll = ( reel , offset = 0 ) => {
-  
-  //TODO- get the winning combination after set number of games
-  
-  const numberOfRounds = ( offset + 2 ) * numberIcons + Math.round( Math.random() * numberIcons );
-  const style = getComputedStyle( reel );
-  
-  const backgroundPositionY = parseFloat( style[ 'background-position-y' ] );
-  const targetBackgroundPositionY = backgroundPositionY + numberOfRounds * iconHeight;
-  const normalizeBackgroundPositionY = targetBackgroundPositionY % ( numberIcons * iconHeight );
-  
-  return new Promise( ( resolve , reject ) => {
-    reel.style.transition = `background-position-y ${ 8 + numberOfRounds * timePerIcon }ms cubic-bezier(.45, .05, .58, 1.09)`;
-    reel.style.backgroundPositionY = `${ targetBackgroundPositionY }px`;
-    
-    setTimeout( () => {
-      reel.style.transition = 'none';
-      reel.style.backgroundPositionY = `${ normalizeBackgroundPositionY }px`;
-      resolve( numberOfRounds % numberIcons );
-    } , 8 + numberOfRounds * timePerIcon );
-    
-  } );
-};
+let isWinnerSlots = ref(false)
+const roll = (reel, offset = 0) => {
+            const numberOfRounds = (offset + 2) * numberIcons + Math.round(Math.random() * numberIcons);
+
+            const style = getComputedStyle(reel);
+            const backgroundPositionY = parseFloat(style["background-position-y"]);
+            const targetBackgroundPositionY = backgroundPositionY + numberOfRounds * iconHeight;
+            const normalizeBackgroundPositionY = targetBackgroundPositionY % (numberIcons * iconHeight);
+
+            return new Promise((resolve, reject) => {
+
+                  reel.style.transition = `background-position-y ${8 + numberOfRounds * timePerIcon}ms cubic-bezier(.45, .05, .58, 1.09)`;
+                  reel.style.backgroundPositionY = `${targetBackgroundPositionY}px`;
+
+                  setTimeout(() => {
+                        reel.style.transition = `none`;
+                        reel.style.backgroundPositionY = `${normalizeBackgroundPositionY}px`;
+                        resolve(numberOfRounds * timePerIcon);
+
+
+
+                  }, 8 + numberOfRounds * timePerIcon);
+
+
+            });
+      };
 
 function rollAll() {
-  
-  const reelList = document.querySelectorAll( '.reel' );
-  isRolling.value = true;
-  if ( numberPlay.value < 4 ) {
-    console.log( 'STILL PLAYING' );
-  }
-  else {
-    console.log( 'SHOULD WIN NOW' );
-  }
-  Promise
-      .all( [ ...reelList ].map( ( item , i ) => {
-        console.log( 'REEL' , item );
-        roll( item , i );
-      } ) )
-      .then( ( data ) => {
-        data.forEach( ( item , i ) => indexes[ i ] = ( indexes[ i ] + item ) % numberIcons );
-        indexes.map( ( index ) => {
-          console.log( iconMap[ index ] );
-        } );
-        
-        //winning condition
-        if ( indexes[ 0 ] === indexes[ 1 ] || indexes[ 0 ] === indexes[ 1 ] === indexes[ 2 ] ) {
-          console.log( 'Winner' );
-        }
-        isRolling.value = false;
-        numberPlay.value += 1;
-      } );
+      const reelList = document.querySelectorAll(".reel");
+      isRolling.value = true // disables roll button
+      isWinnerSlots.value = false
+
+      Promise.all(
+            [...reelList].map((reel, i) => roll(reel, i))
+      )
+      .then((datas) => {
+            datas.forEach(( data, i ) => indexes[i] = (indexes[i] + data) % numberIcons)
+            indexes.map(( i ) => console.log('STOPPED ON', iconMap[i])) // logs each reel once stopped
+
+            // Winning condition
+            if(indexes[0] === indexes[1] || indexes[0] === indexes[2] || indexes[1] === indexes[2] || indexes[0] === indexes[1] === indexes[2]) {
+                  let rollCount = 0
+                  rollCount += 1
+                  if (rollCount >= 1 ) {
+                  console.log('Winner')
+                    isWinnerSlots.value = true
+                  }
+            }
+
+        isRolling.value = false // enables roll button
+      })
 }
 
 watchEffect( () => {
@@ -866,6 +851,9 @@ const home = () => {
                 <div class="reel"></div>
             </div>
             <button class="mx-2 btn btn-primary " :disabled="isRolling" @click="rollAll">{{ isRolling ? 'WAIT' : 'ROLL' }}</button>
+        </div>
+        <div class="d-flex justify-content-center" v-if="isWinnerSlots">
+            <h4>Winner, Winner, Chicken Dinner</h4>
         </div>
     </div>
     
